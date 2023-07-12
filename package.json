@@ -1,20 +1,20 @@
 {
-  "name": "MODULE_NAME",
+  "name": "pos-module-openai",
   "version": "0.0.0",
-  "description": "Module description",
+  "description": "Integration between platformOS and openai embeddings",
   "scripts": {
-    "version": "(cd ../../ && pos-cli modules version MODULE_NAME -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
+    "version": "(cd ../../ && pos-cli modules version pos-module-openai -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Platform-OS/pos-module-MODULE_NAME.git"
+    "url": "git+https://github.com/Platform-OS/pos-module-openai.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Platform-OS/pos-module-MODULE_NAME/issues"
+    "url": "https://github.com/Platform-OS/pos-module-openai/issues"
   },
-  "homepage": "https://github.com/Platform-OS/pos-module-MODULE_NAME#readme",
+  "homepage": "https://github.com/Platform-OS/pos-module-openai#readme",
   "devDependencies": {
     "auto-changelog": "^2.4.0"
   },
