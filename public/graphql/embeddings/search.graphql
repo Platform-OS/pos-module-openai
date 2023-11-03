@@ -1,4 +1,4 @@
-query embeddings($limit: Int = 2000, $page: Int = 1, $metadata: [JsonbFilter!], $related_to: [Float]) {
+query embeddings($limit: Int = 2000, $page: Int = 1, $metadata: [JsonbFilter!], $related_to: [Float!]) {
   embeddings: embeddings_rc(
     per_page: $limit,
     page: $page
