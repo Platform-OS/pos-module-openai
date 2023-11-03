@@ -1,4 +1,4 @@
-mutation embedding_update($id: ID!, $embedding: [Float]!, $content: String!, $metadata: HashObject, $token_count: Int){
+mutation embedding_update($id: ID!, $embedding: [Float!]!, $content: String!, $metadata: HashObject, $token_count: Int){
   embedding_update: embedding_update_rc(
     id: $id
     embedding: {
