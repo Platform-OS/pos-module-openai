@@ -2,7 +2,6 @@
   "name": "pos-module-openai",
   "machine_name": "openai",
   "type": "module",
-  "version": "0.0.0",
-  "dependencies": {
-  }
+  "version": "0.0.2",
+  "dependencies": {}
 }
