@@ -138,7 +138,7 @@ The script assumes that each indexed page has configured [Metadata](https://docu
 
 The example search page is located at `app/views/pages/openai_search.liquid`. It serves primarily for demonstration purposes and intentionally violates some [best practices](https://documentation.platformos.com/developer-guide/modules/platformos-modules#how-to-use-devkit), such as separating business rules from the presentation layer. This design choice aims to present an all-in-one example of the entire workflow.
 
-You'll find there additional checks to ensure the module [setup](#setup) has been configured correctly. It supports the hCaptcha challenge to prevent spam requests and demonstrates how to use the [commands and queries](#functionality-provided-by-the-user-module) provided by the OpenAI module.
+The example search page includes additional checks to ensure the module [setup](#setup) has been configured correctly. It supports the hCaptcha challenge to prevent spam requests and demonstrates how to use the [commands and queries](#functionality-provided-by-the-user-module) provided by the OpenAI module.
 
 ### Further Considerations
 
