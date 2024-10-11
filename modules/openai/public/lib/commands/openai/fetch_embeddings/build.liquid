@@ -1,5 +1,5 @@
 {% parse_json request_object %}
-{% assign model = context.constants['modules/openai/OPENAI_MODEL'] | default: "text-embedding-3-small" %}
+{% assign model = context.constants['modules/openai/OPENAI_MODEL'] | default: "text-embedding-ada-002" %}
 {% assign version = context.constants['modules/openai/OPENAI_VERSION'] | default: "v1" %}
 {
   "template": "modules/core/generic",
