@@ -21,7 +21,7 @@ The platformOS OpenAI Module is fully compatible with [platformOS Check](https:/
 ```bash
    pos-cli modules install openai
 ```
-This command installs the OpenAI Module along with its dependencies ([pos-module-core()](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
+This command installs the OpenAI Module along with its dependencies ([pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
 ### Setup
 
