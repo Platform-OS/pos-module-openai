@@ -68,13 +68,17 @@ The command returns a JSON response containing the embeddings.
 
 ##### transforming a string into an embedding:
 
+```
 {% assign object = "hello world" %}
 {% function response = 'modules/openai/commands/openai/fetch_embeddings', object: object %}
+```
 
 ##### transforming an array of strings into embeddings:
 
+```
 {% assign object = "hello world,this can be a long text" | split: ',' %}
 {% function response = 'modules/openai/commands/openai/fetch_embeddings', object: object %}
+```
 
 ### Embeddings CRUD operations
 
