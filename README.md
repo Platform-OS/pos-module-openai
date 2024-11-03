@@ -26,7 +26,7 @@ This command installs the OpenAI Module along with its dependencies, such as [po
 ### Setup
 
 1. **Create an OpenAI API Key**: Follow the official OpenAI instructions to [create an OpenAI API Key](https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key).
-2. **Configure the `OPENAI_SECRET_TOKEN` [Constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants)**: Store your API key in the `modules/openai/OPENAI_SECRET_TOKEN` as a constant for secure access.
+2. **Configure the `modules/openai/OPENAI_SECRET_TOKEN` [Constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants)**: Store your API key in the `modules/openai/OPENAI_SECRET_TOKEN` as a constant for secure access.
 
 ### Pulling the Source Code
 
