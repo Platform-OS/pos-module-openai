@@ -35,7 +35,7 @@ To use advanced features such as autocomplete for `function`, `include`, and `gr
 1. **Pull the Source Code**: Use the `pos-cli` command to pull the source code into your local environment:
 
 ```
-pos-cli modules pull openai
+pos-cli modules download openai
 ```
 
 2. **Update Your .gitignore**: Add `modules/openai` to your `.gitignore` file to avoid directly modifying the module files. This precaution helps maintain the integrity of the module and simplifies future updates. If needed, repeat this step for every dependency, such as the core module.
