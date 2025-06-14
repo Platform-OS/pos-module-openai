@@ -1,5 +1,4 @@
 {%- liquid
-
   function object = 'modules/openai/commands/openai/responses/build', object: object;
   function checked_object = 'modules/openai/commands/openai/responses/check', object: object;
 
@@ -9,7 +8,7 @@
     assign response_code = response.response.status
 
     if response_code != 200
-      assign error_message = "ERROR: OpenAI API call failed with status code #" | append: response_code
+      assign error_message = "ERROR: OpenAI Responses API call failed with status code #" | append: response_code
       log response.response.body | parse_json, type: error_message
       return null
     else

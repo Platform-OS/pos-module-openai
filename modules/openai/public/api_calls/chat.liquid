@@ -1,6 +1,6 @@
 ---
 to: >
-  https://api.openai.com/{{ context.constants['modules/openai/OPENAI_VERSION'] | default: "v1" }}/responses
+  https://api.openai.com/{{ context.constants['modules/openai/OPENAI_VERSION'] | default: "v1" }}/chat/completions
 request_type: POST
 headers: >
   {
