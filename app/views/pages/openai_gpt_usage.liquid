@@ -55,7 +55,7 @@ Exciting times ahead for designers and developers.
 -%}
 <html>
   <head>
-    <title>OpenAI Responses Create</title>
+    <title>OpenAI GPT Examples</title>
     <style>
       html, body {
         font-family: Arial, sans-serif;
@@ -104,7 +104,7 @@ Exciting times ahead for designers and developers.
   </head>
   <body>
     <main>
-      <h1>OpenAI Responses Create Example</h1>
+      <h1>OpenAI GPT Example</h1>
       <p>This page demonstrates how to use the OpenAI API to create a response with structured output.</p>
       <p>In this example, we send a request to OpenAI with a system message and user message, including an image, and receive a response with suggested hashtags.</p>
       <p><strong>Note: This example uses hCaptcha for bot protection. Please ensure you have configured your hCaptcha site key in the context.</strong></p>
@@ -120,17 +120,21 @@ Exciting times ahead for designers and developers.
         </div>
       </form>
 
-      <h2>OpenAI Request</h2>
-      <div>
-        <pre id="openai-request"></pre>
-      </div>
+      {% if c.valid %}
+        <h2>OpenAI Request</h2>
+        <div>
+          <pre id="openai-request"></pre>
+        </div>
 
-      <h2>OpenAI Response</h2>
-      <pre id="openai-response"></pre>
+        <h2>OpenAI Response</h2>
+        <pre id="openai-response"></pre>
+      {% endif %}
     </main>
   </body>
-  <script>
-    document.getElementById("openai-request").textContent = JSON.stringify({{ request_object }}, null, 2);
-    document.getElementById("openai-response").textContent = JSON.stringify({{ response_object }}, null, 2);
-  </script>
+  {% if c.valid %}
+    <script>
+      document.getElementById("openai-request").textContent = JSON.stringify({{ request_object }}, null, 2);
+      document.getElementById("openai-response").textContent = JSON.stringify({{ response_object }}, null, 2);
+    </script>
+  {% endif %}
 </html>
