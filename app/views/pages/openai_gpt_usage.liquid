@@ -104,30 +104,34 @@ Exciting times ahead for designers and developers.
   </head>
   <body>
     <main>
-      <h1>OpenAI GPT Example</h1>
-      <p>This page demonstrates how to use the OpenAI API to create a response with structured output.</p>
-      <p>In this example, we send a request to OpenAI with a system message and user message, including an image, and receive a response with suggested hashtags.</p>
-      <p><strong>Note: This example uses hCaptcha for bot protection. Please ensure you have configured your hCaptcha site key in the context.</strong></p>
-      <form>
-        <fieldset>
-          <script src="https://hcaptcha.com/1/api.js" async defer></script>
-          <div class='h-captcha' data-sitekey="{{ context.hcaptcha_site_key }}"></div>
-        </fieldset>
-        <div class="form-button">
-          <button class="btn btn-primary">
-            Create
-          </button>
-        </div>
-      </form>
+      {% if context.constants['modules/openai/OPENAI_SECRET_TOKEN'] == blank %}
+        OpenAI is not configured in this environment.
+      {% else %}
+        <h1>OpenAI GPT Example</h1>
+        <p>This page demonstrates how to use the OpenAI API to create a response with structured output.</p>
+        <p>In this example, we send a request to OpenAI with a system message and user message, including an image, and receive a response with suggested hashtags.</p>
+        <p><strong>Note: This example uses hCaptcha for bot protection.</strong></p>
+        <form>
+          <fieldset>
+            <script src="https://hcaptcha.com/1/api.js" async defer></script>
+            <div class='h-captcha' data-sitekey="{{ context.hcaptcha_site_key }}"></div>
+          </fieldset>
+          <div class="form-button">
+            <button class="btn btn-primary">
+              Create
+            </button>
+          </div>
+        </form>
 
-      {% if c.valid %}
-        <h2>OpenAI Request</h2>
-        <div>
-          <pre id="openai-request"></pre>
-        </div>
+        {% if c.valid %}
+          <h2>OpenAI Request</h2>
+          <div>
+            <pre id="openai-request"></pre>
+          </div>
 
-        <h2>OpenAI Response</h2>
-        <pre id="openai-response"></pre>
+          <h2>OpenAI Response</h2>
+          <pre id="openai-response"></pre>
+        {% endif %}
       {% endif %}
     </main>
   </body>
