@@ -53,4 +53,4 @@ Exciting times ahead for designers and developers.
   endif
 -%}
 
-{% include 'gpt_usage_view' %}
+{% render 'gpt_usage_view' request_object: request_object, response_object: response_object, c: c %}
