@@ -51,8 +51,10 @@ modules_that_allow_delete_on_deploy:
 
 ## Functionality provided by the OpenAI module:
 
-- [x] **[API Call to OpenAI Embeddings API](#api-call-to-openai-embeddings-api)**:  
+- [x] **[API Call to OpenAI Embeddings API](#api-call-to-openai-embeddings-api)**:
 - [x] **[Embeddings CRUD Operations](#embeddings-crud-operations)**
+- [x] **[API Call to OpenAI Chat Completions](#api-call-to-openai-chat-completions)**
+- [x] **[API Call to OpenAI Responses](#api-call-to-open_ai-responses)**
 
 ### API Call to OpenAI Embeddings API
 
@@ -61,8 +63,8 @@ This module function triggers an API call to `https://api.openai.com/v1/embeddin
 The command takes an `object` as an input, which is a string or an array of strings that you would like to transform into embedding(s).
 The command returns a JSON response containing the embeddings.
 
-> [!NOTE] 
-> The module uses `text-embedding-ada-002` model, as platformOS expects embeddings of length 1536. 
+> [!NOTE]
+> The module uses `text-embedding-ada-002` model, as platformOS expects embeddings of length 1536.
 
 #### Examples
 
@@ -92,7 +94,7 @@ To create a new embedding returned by the OpenAI Embeddings API, use the `module
 assign pos_embedding_input = '{}' | parse_json
 assign metadata = '{}' | parse_json
 
-hash_assign metadata['title'] = "A title" # metadata allows us to cache any relevant metadata to avoid performing any extra DB query. 
+hash_assign metadata['title'] = "A title" # metadata allows us to cache any relevant metadata to avoid performing any extra DB query.
 hash_assign pos_embedding_input['metadata'] = metadata
 hash_assign pos_embedding_input['embedding'] = response.data.first.embedding # assumes the response is the result of fetch_embeddings command and we invoked it for one string, which is why we are interested only in the first embedding. This field should contain embedding of length 1536, which is what OpenAI Embedding API returns for text-embedding-ada-002 model.
 hash_assign pos_embedding_input['content'] = "Hello world" # usually we want to cache the original input that we transformed into an embedding.
@@ -110,7 +112,7 @@ Update existing embeddings using the `modules/openai/embeddings/update` command.
 %}
 ```
 
-#### Delete 
+#### Delete
 
 Delete an existing embedding with the `modules/openai/embeddings/delete` command:
 
@@ -126,11 +128,83 @@ To leverage embeddings, you will need to perform a search operation through `mod
   function related_embeddings = 'modules/openai/queries/embeddings/search', related_to: embedding, limit: 5
 ```
 
-## Example application
+### API Call to OpenAI Chat Completions
 
-One typical use case for embeddings is to implement AI-enhanced search, which is also the first step in Retrieval-Augmented Generation (RAG). You can find an example implementation of this functionality in the `app` directory. It’s ready to be copied and customized for your application needs or further integrated with the LLM of your choice. This example demonstrates key concepts in action.
+This module function triggers an API call to https://api.openai.com/v1/chat/completions through the modules/openai/openai/chat/completions defined in modules/openai/public/lib/commands/openai/chat/completions.liquid. It automatically generates an authorization header using the modules/openai/OPENAI_SECRET_TOKEN constant.
 
-### Script to Transform Existing Data into Embeddings
+The command takes an object as an input, which is an object with options:
+```
+  model: (optional) String
+    - The OpenAI model to use. Defaults to "gpt-4o-mini" if not provided.
+
+  temperature: (optional) Number
+    - Controls the randomness of the output. Defaults to 1 if not provided.
+
+  system_message: (optional) String
+    - The system message that sets the behavior of the AI.
+
+  user_message: (mandatory) String
+    - The main text prompt/message from the user.
+
+  user_images: (optional) Array of Strings
+    - Array of image URLs or Base64 to include in the prompt.
+    - Each URL will be added as an input_image type message.
+
+  response_format_schema_json: (optional) Object
+    - JSON schema that defines the structure of the expected response.
+    - Used to format the AI's response in a specific JSON structure.
+    - It's strongly recommended to provide this schema for structured outputs for predictive results.
+
+```
+
+The command returns a response containing the GPT answer. We strongly recommend to provide `response_format_schema_json` schema for structured (JSON) outputs for predictive results.
+
+Check also:
+ - https://platform.openai.com/docs/api-reference/chat
+ - https://platform.openai.com/docs/guides/structured-outputs
+
+### API Call to OpenAI Responses
+
+This module function triggers an API call to new https://api.openai.com/v1/responses through the modules/openai/openai/responses/create defined in modules/openai/public/lib/commands/openai/responses/create.liquid. It automatically generates an authorization header using the modules/openai/OPENAI_SECRET_TOKEN constant.
+
+The command takes an object as an input, which is an object with options same as for **[API Call to OpenAI Chat Completions](#api-call-to-openai-chat-completions)** with additional:
+
+```
+  response_format_required_fields: (optional) Array of Strings
+    - Specifies which fields in the response schema are required.
+    - If not provided, all fields in the schema will be considered required.
+```
+
+Check also:
+ - https://platform.openai.com/docs/api-reference/responses/create
+ - https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses
+ - https://platform.openai.com/docs/guides/responses-vs-chat-completions?api-mode=responses
+ - https://platform.openai.com/docs/api-reference/chat
+
+## Example Applications
+
+This module includes two example applications that demonstrate practical implementations:
+
+### 1. AI-Enhanced Search with RAG
+
+Located in the `app/views/pages/openai_search.liquid` file, this example showcases:
+- Implementation of AI-enhanced search functionality
+- First step of Retrieval-Augmented Generation (RAG)
+- Ready-to-use codebase that you can:
+  - Copy directly into your application
+  - Customize to match your specific needs
+  - Integrate with your preferred LLM
+
+### 2. Hashtag Generation with GPT
+
+Located in `app/views/pages/openai_gpt_usage.liquid`, this example demonstrates:
+- Using OpenAI's GPT model to analyze content
+- Processing both text and images
+- Automatic hashtag generation based on post content
+
+Both examples provide practical, working implementations that illustrate core concepts and usage patterns.
+
+#### Script to Transform Existing Data into Embeddings
 
 You can find the script in `app/lib/commands/openai/commands_to_embeddings.liquid`. It fetches the existing [Pages](https://documentation.platformos.com/developer-guide/pages/pages), filters them according to your needs, and creates embeddings based on their content. This is intended for demonstration purposes; for instance, instead of creating embeddings for entire pages, you might choose to create embeddings for specific paragraphs, which could yield better results.
 
@@ -138,15 +212,29 @@ The script can be run multiple times and will remove embeddings of pages that ha
 
 The script assumes that each indexed page has configured [Metadata](https://documentation.platformos.com/developer-guide/pages/metadata) — `title` and `description`. These are required to efficiently render the [Search Page](#search-page) without needing to make another database query.
 
-### Search page
+#### Search page
 
 The example search page is located at `app/views/pages/openai_search.liquid`. It serves primarily for demonstration purposes and intentionally violates some [best practices](https://documentation.platformos.com/developer-guide/modules/platformos-modules#how-to-use-devkit), such as separating business rules from the presentation layer. This design choice aims to present an all-in-one example of the entire workflow.
 
 The example search page includes additional checks to ensure the module [setup](#setup) has been configured correctly. It supports the hCaptcha challenge to prevent spam requests and demonstrates how to use the [commands and queries](#functionality-provided-by-the-user-module) provided by the OpenAI module.
 
-### Further Considerations
+#### Further Considerations
 
 **Maintaining Updated Embeddings**:  An important aspect not covered in the application is ensuring that your embeddings remain up-to-date. You can achieve this by regularly invoking [the script](#a-script-to-transform-existing-data-into-embeddings) designed to refresh embeddings. Alternatively, and preferably, you can leverage [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events) to create consumers that automatically update embeddings whenever an entity you wish to track is created, updated, or deleted.
+
+#### Generate hashtags based on post content and images
+In this example, we demonstrate using OpenAI GPT endpoints to generate hashtags. The process involves:
+
+1. Creating a prompt that includes:
+  - Example post text
+  - Images
+  - Structured output format
+
+2. Sending the prompt to OpenAI API, which analyzes both text and images to generate relevant hashtags
+
+3. Receiving a structured response containing an array of hashtags based on the provided content
+
+The implementation showcases how to combine multiple content types (text and images) to generate context-aware tags using AI.
 
 ## Contribution
 
