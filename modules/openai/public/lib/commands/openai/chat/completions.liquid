@@ -9,7 +9,7 @@
 
     if response_code != 200
       assign error_message = "ERROR: OpenAI API chat call failed with status code #" | append: response_code
-      log response.response.body | parse_json, type: error_message
+      log response.response.body, type: error_message
       return null
     else
       assign response_body = response.response.body | parse_json
