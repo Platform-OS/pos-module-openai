@@ -165,7 +165,11 @@ Check also:
 
 ### API Call to OpenAI Responses
 
-This module function triggers an API call to new https://api.openai.com/v1/responses through the modules/openai/openai/responses/create defined in modules/openai/public/lib/commands/openai/responses/create.liquid. It automatically generates an authorization header using the modules/openai/OPENAI_SECRET_TOKEN constant.
+```liquid
+  function response = 'modules/openai/openai/responses/create', ...
+```
+
+This module function triggers an API call to new [https://api.openai.com/v1/responses through the modules/openai/openai/responses/create](https://api.openai.com/v1/responses) through the [modules/openai/public/lib/commands/openai/responses/create.liquid](https://github.com/Platform-OS/pos-module-openai/blob/master/modules/openai/public/lib/commands/openai/responses/create.liquid). It automatically generates an authorization header using the `modules/openai/OPENAI_SECRET_TOKEN` constant.
 
 The command takes an object as an input, which is an object with options same as for **[API Call to OpenAI Chat Completions](#api-call-to-openai-chat-completions)** with additional:
 
