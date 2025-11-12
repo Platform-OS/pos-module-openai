@@ -130,9 +130,13 @@ To leverage embeddings, you will need to perform a search operation through `mod
 
 ### API Call to OpenAI Chat Completions
 
-This module function triggers an API call to https://api.openai.com/v1/chat/completions through the modules/openai/openai/chat/completions defined in modules/openai/public/lib/commands/openai/chat/completions.liquid. It automatically generates an authorization header using the modules/openai/OPENAI_SECRET_TOKEN constant.
+```liquid
+  function response = 'modules/openai/openai/chat/completions', ...
+```
 
-The command takes an object as an input, which is an object with options:
+This module function triggers an API call to [https://api.openai.com/v1/chat/completions](https://api.openai.com/v1/chat/completions) through the [modules/openai/public/lib/commands/openai/chat/completions.liquid](https://github.com/Platform-OS/pos-module-openai/blob/master/modules/openai/public/lib/commands/openai/chat/completions.liquid). It automatically generates an authorization header using the `modules/openai/OPENAI_SECRET_TOKEN` constant.
+
+The command takes an object as input, which is an object with options:
 ```
   model: (optional) String
     - The OpenAI model to use. Defaults to "gpt-4o-mini" if not provided.
@@ -157,7 +161,7 @@ The command takes an object as an input, which is an object with options:
 
 ```
 
-The command returns a response containing the GPT answer. We strongly recommend to provide `response_format_schema_json` schema for structured (JSON) outputs for predictive results.
+The command returns a response containing the GPT answer. We strongly recommend providing `response_format_schema_json` schema for structured (JSON) outputs for predictive results.
 
 Check also:
  - https://platform.openai.com/docs/api-reference/chat
@@ -171,7 +175,7 @@ Check also:
 
 This module function triggers an API call to new [https://api.openai.com/v1/responses through the modules/openai/openai/responses/create](https://api.openai.com/v1/responses) through the [modules/openai/public/lib/commands/openai/responses/create.liquid](https://github.com/Platform-OS/pos-module-openai/blob/master/modules/openai/public/lib/commands/openai/responses/create.liquid). It automatically generates an authorization header using the `modules/openai/OPENAI_SECRET_TOKEN` constant.
 
-The command takes an object as an input, which is an object with options same as for **[API Call to OpenAI Chat Completions](#api-call-to-openai-chat-completions)** with additional:
+The command takes an object as an input, which is an object with options similar to those for **[API Call to OpenAI Chat Completions](#api-call-to-openai-chat-completions)** with additional:
 
 ```
   response_format_required_fields: (optional) Array of Strings
